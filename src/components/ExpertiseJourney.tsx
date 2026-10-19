@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ACCORDION_ITEMS, EDUCATION, EXPERIENCE, PROCESS_STEPS } from "@/lib/data";
+import { Reveal } from "@/components/Reveal";
 
 export default function ExpertiseJourney() {
   const [expandedId, setExpandedId] = useState<string>("exp-1");
@@ -30,7 +31,7 @@ export default function ExpertiseJourney() {
         </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "4rem", alignItems: "start" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+          <Reveal style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
             <h2 className="editorial-title">
               How I work.
               <br />
@@ -54,13 +55,13 @@ export default function ExpertiseJourney() {
                 <span style={{ fontSize: "0.8rem" }}>↗</span>
               </a>
             </div>
-          </div>
+          </Reveal>
 
           <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
-            {ACCORDION_ITEMS.map((item) => {
+            {ACCORDION_ITEMS.map((item, idx) => {
               const isExpanded = expandedId === item.id;
               return (
-                <article key={item.id} style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden", transition: "border-color 0.25s ease" }}>
+                <Reveal key={item.id} delay={idx * 0.08} style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden", transition: "border-color 0.25s ease" }}>
                   <button
                     onClick={() => setExpandedId(isExpanded ? "" : item.id)}
                     aria-expanded={isExpanded}
@@ -88,7 +89,7 @@ export default function ExpertiseJourney() {
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </article>
+                </Reveal>
               );
             })}
           </div>
@@ -105,7 +106,7 @@ export default function ExpertiseJourney() {
           <span>EDUCATION &amp; EXPERIENCE</span>
         </div>
 
-        <div style={{ marginBottom: "3rem" }}>
+        <Reveal style={{ marginBottom: "3rem" }}>
           <h2 className="editorial-title">
             From the classroom.
             <br />
@@ -114,21 +115,21 @@ export default function ExpertiseJourney() {
           <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "480px", marginTop: "1rem" }}>
             Since 2024, I&apos;ve completed my degree, joined a professional engineering team, and started building toward data and AI alongside that work.
           </p>
-        </div>
+        </Reveal>
 
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2.5rem", marginBottom: "3rem" }}>
-          {EDUCATION.map((item) => (
-            <div key={item.degree} style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "12px" }}>
+          {EDUCATION.map((item, idx) => (
+            <Reveal key={item.degree} delay={idx * 0.08} style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "12px" }}>
               <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", letterSpacing: "0.15em", color: "var(--accent)", textTransform: "uppercase" }}>
                 {item.period}
               </span>
               <h4 style={{ fontFamily: "var(--font-serif)", fontSize: "1.35rem", color: "var(--cream)", margin: "0.5rem 0" }}>{item.degree}</h4>
               <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}>{item.description}</p>
-            </div>
+            </Reveal>
           ))}
 
           {EXPERIENCE.map((job) => (
-            <div key={job.company} style={{ padding: "2rem", background: "rgba(255, 112, 51, 0.04)", border: "1px solid rgba(255, 112, 51, 0.2)", borderRadius: "12px" }}>
+            <Reveal key={job.company} delay={0.16} style={{ padding: "2rem", background: "rgba(255, 112, 51, 0.04)", border: "1px solid rgba(255, 112, 51, 0.2)", borderRadius: "12px" }}>
               <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", letterSpacing: "0.15em", color: "var(--accent)" }}>
                 THE CURRENT ROLE
               </span>
@@ -137,11 +138,11 @@ export default function ExpertiseJourney() {
                 <span style={{ color: "var(--cream)", fontFamily: "var(--font-sans)", fontSize: "0.7rem", marginLeft: "0.6rem" }}>{job.period}</span>
               </h4>
               <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}>{job.summary}</p>
-            </div>
+            </Reveal>
           ))}
         </div>
 
-        <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "16px", padding: "3rem" }}>
+        <Reveal style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "16px", padding: "3rem" }}>
           <div style={{ marginBottom: "2.5rem" }}>
             <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", letterSpacing: "0.15em", color: "var(--accent)", textTransform: "uppercase" }}>
               CAREER TIMELINE
@@ -178,7 +179,7 @@ export default function ExpertiseJourney() {
               </p>
             </div>
           </div>
-        </div>
+        </Reveal>
       </section>
     </>
   );

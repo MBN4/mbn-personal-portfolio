@@ -2,6 +2,7 @@
 
 import { PROOF_HIGHLIGHTS } from "@/lib/data";
 import { CornerArrowIcon } from "@/components/icons/Icons";
+import { RevealItem, RevealStagger } from "@/components/Reveal";
 
 export default function ProofStrip() {
   return (
@@ -9,7 +10,7 @@ export default function ProofStrip() {
       aria-label="Career highlights"
       style={{ backgroundColor: "var(--surface)", borderBottom: "1px solid var(--border)", width: "100%" }}
     >
-      <div
+      <RevealStagger
         style={{
           maxWidth: "1360px",
           margin: "0 auto",
@@ -19,7 +20,7 @@ export default function ProofStrip() {
         }}
       >
         {PROOF_HIGHLIGHTS.map((item, index) => (
-          <div
+          <RevealItem
             key={index}
             style={{
               padding: "2.5rem 2rem",
@@ -45,7 +46,7 @@ export default function ProofStrip() {
             <p style={{ fontFamily: "var(--font-sans)", fontSize: "0.86rem", color: "var(--text-muted)", lineHeight: 1.5, maxWidth: "220px" }}>
               {item.label}
             </p>
-          </div>
+          </RevealItem>
         ))}
 
         <a
@@ -101,7 +102,7 @@ export default function ProofStrip() {
           </div>
           <CornerArrowIcon width={24} height={24} />
         </a>
-      </div>
+      </RevealStagger>
     </section>
   );
 }

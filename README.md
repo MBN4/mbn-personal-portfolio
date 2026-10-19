@@ -26,16 +26,37 @@ permission) and used to reproduce the real mechanism rather than an inferred one
   that don't exist in its stylesheet — a real bug that makes it invisible on the live site — so
   this was corrected rather than copied.)
 - **A functional Motion On/Off toggle** (`src/lib/motion-context.tsx`), matching the exact button
-  UI, that disables entrance animations and the custom cursor together.
+  UI, that disables entrance animations, scroll reveals, Lenis, and the 3D orb and custom cursor
+  together.
 - Section-for-section structure: a centered Hero with a masked grayscale portrait behind giant
   serif type; a ProofStrip stat bar; an About section with an interactive 3-tab "disciplines"
   switcher (Build / Automate / Learn) driving an animated SVG canvas; a Work section with
   browser-chrome-framed project cards, a compact list, and an expandable architecture accordion;
   an Expertise section with a numbered accordion of capabilities; a Journey timeline; a filterable
   Skills grid; and a Contact section with an availability badge and social-link rows.
-- Native CSS `scroll-behavior: smooth` is used for anchor scrolling — the source repo has no
-  Lenis/GSAP scroll library, so none was added here either (Lenis was removed from this project
-  during this pass for fidelity).
+
+### A second look at the actual reference, and three gaps that fix closed
+
+After the first pass, the user reported the build still didn't match the reference: no smooth
+scrolling, no scroll-triggered section animations, and no interactive 3D element — and supplied a
+new, cleaner cutout of the hero photo. Re-examining the original screen recording frame-by-frame
+found a glowing 3D orb/wireframe shape materializing behind the headline during the hero's
+scroll-out transition — something the `Bibekksah123/bibek_ksah` clone used as the base (it has no
+`three` dependency) doesn't reproduce. That gap was closed with three concrete additions:
+
+- **Lenis** smooth scrolling is back (`src/components/SmoothScroll.tsx`), gated by the motion
+  toggle and `prefers-reduced-motion`.
+- **Scroll-triggered reveal animations** (`src/components/Reveal.tsx`, using Framer Motion
+  `whileInView`) were added to every section's headings, cards, and list rows, so content fades
+  and slides in as it enters the viewport rather than only animating once on page load.
+- **A real interactive 3D element** (`src/components/HeroOrb.tsx`) — a Three.js wireframe
+  icosahedron with orbit rings and a drifting particle field, rendered behind the hero portrait,
+  rotating continuously and tilting toward the cursor on mouse move. It's an original
+  implementation (not copied from any source file), built in the accent color to match the rest
+  of the design, and is disabled along with everything else when Motion is switched off.
+- The new hero photo (a cleaner cutout on a white background) is composited onto the dark theme
+  with `mix-blend-mode: multiply`, which drops the white background against the page/orb behind
+  it without needing an actual image mask.
 
 Content, project selection, and copy are original and tailored to Bilal's real background and
 verified GitHub repositories — only the design system and interaction mechanism were reproduced.
@@ -46,7 +67,9 @@ verified GitHub repositories — only the design system and interaction mechanis
 - **Tailwind CSS v4**, with the design tokens and utility classes (`.editorial-title`,
   `.section-label`, `.pill-button`, `.browser-bar`, `.cursor-dot`/`.cursor-ring`, `.motion-button`,
   the grain overlay) in `src/app/globals.css`
-- **Framer Motion** for the Hero/Nav entrance, the About tab switcher, and the accordions
+- **Framer Motion** for the Hero/Nav entrance, scroll-triggered reveals, the About tab switcher,
+  and the accordions
+- **Lenis** for smooth scrolling; **Three.js** for the interactive hero orb
 - `next/font/google`: **Instrument Serif**, **DM Sans**, **JetBrains Mono**
 
 ## Structure
@@ -54,11 +77,12 @@ verified GitHub repositories — only the design system and interaction mechanis
 - `src/lib/data.ts` — all content (projects, journey, capabilities, process steps, proof stats,
   skill groups, profile links) in one place.
 - `src/lib/motion-context.tsx` — the Motion On/Off provider, persisted to `localStorage`.
-- `src/components/` — `Hero`, `ProofStrip`, `About`, `Work`, `ExpertiseJourney` (combines the
-  "How I Think & Work" accordion and the Journey timeline, mirroring the source repo's combined
-  `Experience.tsx`), `Skills`, `Contact`, `Footer`, `Nav`, `Cursor`, `MotionToggle`.
-- `public/images/hero-portrait.jpg` — the supplied hero photo, used in the Hero and About
-  sections with a grayscale/masked treatment.
+- `src/components/` — `Hero`, `HeroOrb` (the Three.js element), `ProofStrip`, `About`, `Work`,
+  `ExpertiseJourney` (combines the "How I Think & Work" accordion and the Journey timeline,
+  mirroring the source repo's combined `Experience.tsx`), `Skills`, `Contact`, `Footer`, `Nav`,
+  `Cursor`, `MotionToggle`, `SmoothScroll` (Lenis), `Reveal` (scroll-triggered entrance animation).
+- `public/images/hero-portrait.png` — the supplied hero photo, composited into the Hero section
+  with a grayscale filter and `mix-blend-mode: multiply` to drop its white background.
 
 ## Content notes — what's verified vs. not
 
@@ -98,11 +122,13 @@ npm run lint      # ESLint
 - `npm run lint` — passes with no errors or warnings.
 - `npm run build` — production build succeeds, all routes statically prerendered.
 - Manual Playwright pass at desktop (1440×900) and mobile (390×844) widths: zero console/page
-  errors; all section anchors scroll correctly; the About tab switcher, Work's expandable
-  architecture accordion, the Expertise accordion, and the Skills filter pills were each clicked
-  and verified to update correctly; the custom cursor was verified to track the mouse and enlarge
-  on hovering a button; the Motion On/Off toggle was verified to flip state and disable the
-  cursor/entrance animations; the mobile menu opens and closes.
+  errors (including the WebGL canvas); all section anchors scroll correctly through Lenis; the
+  About tab switcher, Work's expandable architecture accordion, the Expertise accordion, and the
+  Skills filter pills were each clicked and verified to update correctly; the custom cursor was
+  verified to track the mouse and enlarge on hovering a button; moving the mouse was verified to
+  tilt the 3D orb; scroll-reveal animations were captured mid-transition to confirm they fire on
+  viewport entry rather than only on page load; the Motion On/Off toggle was verified to disable
+  the cursor, orb, and entrance/reveal animations together; the mobile menu opens and closes.
 
 ## Known limitations
 

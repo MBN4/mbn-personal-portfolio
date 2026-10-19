@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { MotionProvider } from "@/lib/motion-context";
+import { SmoothScroll } from "@/components/SmoothScroll";
 import Cursor from "@/components/Cursor";
 
 const dmSans = DM_Sans({
@@ -65,8 +66,10 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     >
       <body className="sarthak-theme">
         <MotionProvider>
-          <Cursor />
-          {children}
+          <SmoothScroll>
+            <Cursor />
+            {children}
+          </SmoothScroll>
         </MotionProvider>
       </body>
     </html>

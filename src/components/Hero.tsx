@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useMotionOn } from "@/lib/motion-context";
 import { ArrowDownIcon, CornerArrowIcon } from "@/components/icons/Icons";
+import { HeroOrb } from "@/components/HeroOrb";
 
 export default function Hero() {
   const { motionOn } = useMotionOn();
@@ -24,47 +25,6 @@ export default function Hero() {
         backgroundColor: "var(--bg)",
       }}
     >
-      {/* Background Central Portrait with Vignette & Dark Fade */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: "50%",
-          transform: "translateX(-50%)",
-          width: "100%",
-          maxWidth: "900px",
-          height: "100%",
-          maxHeight: "920px",
-          zIndex: 1,
-          pointerEvents: "none",
-          opacity: 0.88,
-          maskImage:
-            "radial-gradient(circle at 50% 40%, black 40%, transparent 80%), linear-gradient(to bottom, black 50%, transparent 95%)",
-          WebkitMaskImage:
-            "radial-gradient(circle at 50% 40%, black 40%, transparent 80%), linear-gradient(to bottom, black 50%, transparent 95%)",
-        }}
-      >
-        <Image
-          src="/images/hero-portrait.jpg"
-          alt="Bilal Nadeem — Software Engineer"
-          fill
-          priority
-          sizes="(max-width: 900px) 100vw, 900px"
-          style={{
-            objectFit: "cover",
-            objectPosition: "48% 12%",
-            filter: "contrast(1.1) brightness(0.92) grayscale(100%)",
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to bottom, rgba(5,5,7,0.1) 0%, rgba(5,5,7,0.3) 50%, #050507 96%)",
-          }}
-        />
-      </div>
-
       {/* Hairline background grid */}
       <div
         style={{
@@ -78,6 +38,51 @@ export default function Hero() {
           pointerEvents: "none",
         }}
       />
+
+      {/* Interactive 3D orb accent */}
+      <HeroOrb />
+
+      {/* Background Central Portrait with Vignette & Dark Fade */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "100%",
+          maxWidth: "900px",
+          height: "100%",
+          maxHeight: "920px",
+          zIndex: 1,
+          pointerEvents: "none",
+          opacity: 0.92,
+          maskImage:
+            "radial-gradient(circle at 50% 40%, black 40%, transparent 80%), linear-gradient(to bottom, black 50%, transparent 95%)",
+          WebkitMaskImage:
+            "radial-gradient(circle at 50% 40%, black 40%, transparent 80%), linear-gradient(to bottom, black 50%, transparent 95%)",
+        }}
+      >
+        <Image
+          src="/images/hero-portrait.png"
+          alt="Bilal Nadeem — Software Engineer"
+          fill
+          priority
+          sizes="(max-width: 900px) 100vw, 900px"
+          style={{
+            objectFit: "cover",
+            objectPosition: "50% 15%",
+            filter: "contrast(1.1) brightness(0.95) grayscale(100%)",
+            mixBlendMode: "multiply",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(to bottom, rgba(5,5,7,0.1) 0%, rgba(5,5,7,0.3) 50%, #050507 96%)",
+          }}
+        />
+      </div>
 
       {/* Topline Metadata Bar */}
       <div

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SKILL_GROUPS, type SkillFilter } from "@/lib/data";
+import { Reveal } from "@/components/Reveal";
 
 const FILTERS: { id: SkillFilter; label: string }[] = [
   { id: "all", label: "All disciplines" },
@@ -29,7 +30,7 @@ export default function Skills() {
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: "2rem", marginBottom: "3.5rem" }}>
-        <div>
+        <Reveal>
           <h2 className="editorial-title">
             Engineered with rigor.
             <br />
@@ -38,7 +39,7 @@ export default function Skills() {
           <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "480px", marginTop: "1rem", lineHeight: 1.6 }}>
             A breakdown of the languages, frameworks, and platforms I actually use — demonstrated through the projects above, not an abstract proficiency score.
           </p>
-        </div>
+        </Reveal>
 
         <div role="group" aria-label="Filter capabilities" style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", background: "var(--surface)", padding: "0.4rem", borderRadius: "9999px", border: "1px solid var(--border)" }}>
           {FILTERS.map((btn) => {

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { PROJECTS, SITE } from "@/lib/data";
 import { ArrowRightIcon, CornerArrowIcon } from "@/components/icons/Icons";
+import { Reveal } from "@/components/Reveal";
 
 const [madinaCollar, circle, aiAnalyst, reelBite, kitchens] = PROJECTS;
 
@@ -40,7 +41,7 @@ export default function Work() {
 
       <div style={{ display: "flex", flexDirection: "column", gap: "5rem" }}>
         {/* Flagship project */}
-        <article
+        <Reveal
           style={{
             display: "flex",
             flexDirection: "column",
@@ -113,7 +114,7 @@ export default function Work() {
               <CornerArrowIcon width={18} height={18} />
             </a>
           </div>
-        </article>
+        </Reveal>
 
         {/* Secondary 2-up grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(340px, 1fr))", gap: "2.5rem" }}>
@@ -121,7 +122,7 @@ export default function Work() {
             const demoLink = project.links.find((l) => l.label.toLowerCase().includes("demo"));
             const codeLink = project.links.find((l) => l.label.toLowerCase().includes("code")) ?? project.links[0];
             return (
-              <article key={project.slug} style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 20px 45px rgba(0,0,0,0.4)" }}>
+              <Reveal key={project.slug} delay={i * 0.1} style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 20px 45px rgba(0,0,0,0.4)" }}>
                 <div className="browser-bar">
                   <div className="browser-dots">
                     <span />
@@ -154,7 +155,7 @@ export default function Work() {
                     </a>
                   </div>
                 </div>
-              </article>
+              </Reveal>
             );
           })}
         </div>
@@ -166,27 +167,28 @@ export default function Work() {
           </span>
 
           {[reelBite, kitchens].map((project, i) => (
-            <a
-              key={project.slug}
-              href={project.links[0].href}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem 0", borderBottom: "1px solid var(--border)", textDecoration: "none", color: "#ffffff", transition: "padding-left 0.2s ease" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.paddingLeft = "0.75rem")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.paddingLeft = "0")}
-            >
-              <div>
-                <small style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "0.68rem", letterSpacing: "0.15em", color: "var(--text-dim)", marginBottom: "0.35rem" }}>
-                  {String(i + 4).padStart(2, "0")} / {project.category.toUpperCase()}
-                </small>
-                <span style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", fontWeight: 400 }}>{project.name}</span>
-              </div>
-              <CornerArrowIcon width={22} height={22} />
-            </a>
+            <Reveal key={project.slug} delay={i * 0.08}>
+              <a
+                href={project.links[0].href}
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "1.25rem 0", borderBottom: "1px solid var(--border)", textDecoration: "none", color: "#ffffff", transition: "padding-left 0.2s ease" }}
+                onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.paddingLeft = "0.75rem")}
+                onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.paddingLeft = "0")}
+              >
+                <div>
+                  <small style={{ display: "block", fontFamily: "var(--font-mono)", fontSize: "0.68rem", letterSpacing: "0.15em", color: "var(--text-dim)", marginBottom: "0.35rem" }}>
+                    {String(i + 4).padStart(2, "0")} / {project.category.toUpperCase()}
+                  </small>
+                  <span style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(1.5rem, 2.8vw, 2.2rem)", fontWeight: 400 }}>{project.name}</span>
+                </div>
+                <CornerArrowIcon width={22} height={22} />
+              </a>
+            </Reveal>
           ))}
 
           {/* Expandable architecture details */}
-          <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden", marginTop: "0.5rem" }}>
+          <Reveal style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "12px", overflow: "hidden", marginTop: "0.5rem" }}>
             <button
               onClick={() => setDetailsOpen(!detailsOpen)}
               style={{ width: "100%", padding: "1.25rem 1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center", background: "none", border: "none", color: "var(--text)", cursor: "pointer", fontFamily: "var(--font-sans)", fontSize: "0.96rem", fontWeight: 500 }}
@@ -209,7 +211,7 @@ export default function Work() {
                 </div>
               </div>
             )}
-          </div>
+          </Reveal>
 
           <div style={{ marginTop: "1rem" }}>
             <a href={SITE.github} target="_blank" rel="noopener noreferrer" className="editorial-link" style={{ fontSize: "0.95rem", color: "var(--cream)", fontWeight: 500, display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>

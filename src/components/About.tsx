@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { DISCIPLINES, type DisciplineKey } from "@/lib/data";
+import { Reveal } from "@/components/Reveal";
 
 export default function About() {
   const [activeTab, setActiveTab] = useState<DisciplineKey>("build");
@@ -20,7 +21,7 @@ export default function About() {
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "4rem", alignItems: "start" }}>
         {/* Left Column */}
-        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+        <Reveal style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
           <h2 className="editorial-title">
             Full-stack is
             <br />
@@ -66,10 +67,11 @@ export default function About() {
             <span style={{ border: "1px solid var(--border)", padding: "0.35rem 0.75rem", borderRadius: "4px" }}>BUILDER&apos;S FOLLOW-THROUGH.</span>
             <span style={{ border: "1px solid var(--border)", padding: "0.35rem 0.75rem", borderRadius: "4px" }}>STUDENT OF DATA.</span>
           </div>
-        </div>
+        </Reveal>
 
         {/* Right Column: Interactive Signal Explorer */}
-        <div
+        <Reveal
+          delay={0.15}
           style={{
             background: "var(--surface)",
             border: "1px solid var(--border)",
@@ -270,7 +272,7 @@ export default function About() {
           >
             Choose a discipline.
           </p>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -1,6 +1,7 @@
 "use client";
 
 import { SITE } from "@/lib/data";
+import { Reveal } from "@/components/Reveal";
 
 const CHANNELS = [
   { label: "GitHub", handle: "github.com/MBN4", href: SITE.github },
@@ -20,7 +21,7 @@ export default function Contact() {
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: "4rem", alignItems: "start" }}>
-        <div style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
+        <Reveal style={{ display: "flex", flexDirection: "column", gap: "2rem" }}>
           <h2 className="editorial-title">
             Have an idea to build?
             <br />
@@ -38,9 +39,9 @@ export default function Contact() {
               AVAILABLE FOR NEW ROLES &amp; PROJECTS
             </span>
           </div>
-        </div>
+        </Reveal>
 
-        <div style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "16px", padding: "2.5rem", display: "flex", flexDirection: "column", gap: "0.75rem", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
+        <Reveal delay={0.12} style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "16px", padding: "2.5rem", display: "flex", flexDirection: "column", gap: "0.75rem", boxShadow: "0 20px 50px rgba(0,0,0,0.4)" }}>
           <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-muted)", marginBottom: "0.5rem" }}>
             CONNECT DIRECTLY
           </span>
@@ -71,7 +72,7 @@ export default function Contact() {
               <span style={{ color: "var(--cream)", fontSize: "0.9rem" }}>↗</span>
             </a>
           ))}
-        </div>
+        </Reveal>
       </div>
     </section>
   );
