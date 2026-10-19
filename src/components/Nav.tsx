@@ -2,143 +2,253 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowUpRight, Menu, X } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/data";
+import { useMotionOn } from "@/lib/motion-context";
 
-export function Nav() {
+export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
-  const [open, setOpen] = useState(false);
-  const [active, setActive] = useState<string>("");
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { motionOn } = useMotionOn();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 30);
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  useEffect(() => {
-    const sections = NAV_LINKS.map((l) => document.querySelector(l.href)).filter(
-      (el): el is Element => !!el
-    );
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActive(`#${entry.target.id}`);
-          }
-        });
-      },
-      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
-    );
-
-    sections.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    document.documentElement.style.overflow = open ? "hidden" : "";
-    return () => {
-      document.documentElement.style.overflow = "";
-    };
-  }, [open]);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled ? "bg-bg/85 backdrop-blur-md" : "bg-transparent"
-      }`}
-    >
-      <nav className="container-page flex h-[76px] items-center justify-between">
-        <a href="#top" className="font-display text-lg font-medium tracking-tight text-fg">
-          Bilal Nadeem
-        </a>
+    <>
+      <header
+        style={{
+          position: "fixed",
+          top: "1.25rem",
+          left: 0,
+          right: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          zIndex: 1000,
+          padding: "0 1rem",
+          pointerEvents: "none",
+        }}
+      >
+        <motion.div
+          initial={{ y: motionOn ? -30 : 0, opacity: motionOn ? 0 : 1 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            pointerEvents: "auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "1.75rem",
+            padding: "0.5rem 0.6rem 0.5rem 1.4rem",
+            background: scrolled ? "rgba(12, 12, 16, 0.82)" : "rgba(18, 18, 22, 0.72)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            border: "1px solid rgba(255, 255, 255, 0.11)",
+            borderRadius: "9999px",
+            boxShadow: "0 12px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08)",
+            maxWidth: "100%",
+          }}
+        >
+          <a href="#top" style={{ textDecoration: "none", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+            <span
+              style={{
+                fontFamily: "var(--font-sans)",
+                fontWeight: 600,
+                fontSize: "0.92rem",
+                letterSpacing: "-0.01em",
+                color: "#ffffff",
+              }}
+            >
+              Bilal Nadeem
+            </span>
+          </a>
 
-        <ul className="hidden items-center gap-1 lg:flex">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
+          <nav className="nav-desktop-links" style={{ display: "flex", alignItems: "center", gap: "1.4rem" }}>
+            {NAV_LINKS.map((link) => (
               <a
+                key={link.href}
                 href={link.href}
-                className={`relative px-3 py-2 text-sm transition-colors ${
-                  active === link.href ? "text-fg" : "text-fg-muted hover:text-fg"
-                }`}
+                style={{
+                  textDecoration: "none",
+                  color: "var(--text-muted)",
+                  fontSize: "0.84rem",
+                  fontWeight: 400,
+                  letterSpacing: "0.01em",
+                  transition: "color 0.2s ease",
+                  padding: "0.2rem 0.3rem",
+                }}
+                onMouseEnter={(e) => ((e.target as HTMLElement).style.color = "#ffffff")}
+                onMouseLeave={(e) => ((e.target as HTMLElement).style.color = "var(--text-muted)")}
               >
                 {link.label}
-                {active === link.href && (
-                  <motion.span
-                    layoutId="nav-active"
-                    className="absolute left-3 right-3 -bottom-0.5 h-px bg-accent"
-                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
-                  />
-                )}
               </a>
-            </li>
-          ))}
-        </ul>
+            ))}
+          </nav>
 
-        <a
-          href="#contact"
-          className="hidden items-center gap-1.5 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:border-cream/60 hover:text-cream lg:inline-flex"
-        >
-          Let&apos;s Talk
-          <ArrowUpRight size={15} />
-        </a>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <a
+              href="#contact"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: "0.35rem",
+                padding: "0.45rem 1rem",
+                borderRadius: "9999px",
+                background: "rgba(255, 255, 255, 0.08)",
+                border: "1px solid rgba(255, 255, 255, 0.12)",
+                color: "#ffffff",
+                textDecoration: "none",
+                fontSize: "0.82rem",
+                fontWeight: 500,
+                letterSpacing: "0.01em",
+                transition: "all 0.2s ease",
+              }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.background = "#ffffff";
+                el.style.color = "#000000";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.background = "rgba(255, 255, 255, 0.08)";
+                el.style.color = "#ffffff";
+              }}
+            >
+              <span>Let&apos;s talk</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M7 7h10v10" />
+                <path d="M7 17 17 7" />
+              </svg>
+            </a>
 
-        <button
-          aria-label={open ? "Close menu" : "Open menu"}
-          className="rounded-full border border-border p-2 text-fg lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-        >
-          {open ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </nav>
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              className="nav-mobile-btn"
+              aria-label="Toggle navigation menu"
+              style={{
+                background: "none",
+                border: "none",
+                color: "var(--text)",
+                cursor: "pointer",
+                padding: "0.4rem",
+                display: "none",
+              }}
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                {menuOpen ? (
+                  <>
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </>
+                ) : (
+                  <>
+                    <line x1="4" y1="8" x2="20" y2="8" />
+                    <line x1="4" y1="16" x2="20" y2="16" />
+                  </>
+                )}
+              </svg>
+            </button>
+          </div>
+        </motion.div>
+      </header>
 
       <AnimatePresence>
-        {open && (
+        {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="overflow-hidden border-t border-border bg-bg lg:hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.25 }}
+            style={{
+              position: "fixed",
+              top: "5rem",
+              left: "1rem",
+              right: "1rem",
+              background: "rgba(14, 14, 18, 0.96)",
+              backdropFilter: "blur(30px)",
+              WebkitBackdropFilter: "blur(30px)",
+              border: "1px solid rgba(255, 255, 255, 0.12)",
+              borderRadius: "24px",
+              padding: "1.5rem",
+              zIndex: 999,
+              display: "flex",
+              flexDirection: "column",
+              gap: "1rem",
+              boxShadow: "0 20px 50px rgba(0,0,0,0.8)",
+            }}
           >
-            <ul className="container-page flex flex-col gap-1 py-4">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <a
-                    href={link.href}
-                    onClick={() => setOpen(false)}
-                    className="block rounded-lg px-3 py-3 text-base text-fg-muted transition-colors hover:bg-surface hover:text-fg"
-                  >
-                    {link.label}
-                  </a>
-                </li>
-              ))}
-              <li className="pt-2">
-                <a
-                  href="#contact"
-                  onClick={() => setOpen(false)}
-                  className="flex items-center justify-center gap-1.5 rounded-full border border-border px-4 py-3 text-sm font-medium text-fg"
-                >
-                  Let&apos;s Talk
-                  <ArrowUpRight size={15} />
-                </a>
-              </li>
-              <li>
-                <a
-                  href={SITE.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="block px-3 py-2 text-center text-sm text-fg-muted"
-                >
-                  GitHub ↗
-                </a>
-              </li>
-            </ul>
+            {NAV_LINKS.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMenuOpen(false)}
+                style={{
+                  textDecoration: "none",
+                  color: "var(--text)",
+                  fontSize: "1.1rem",
+                  fontFamily: "var(--font-sans)",
+                  fontWeight: 500,
+                  padding: "0.5rem 0",
+                  borderBottom: "1px solid rgba(255, 255, 255, 0.06)",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                }}
+              >
+                <span>{link.label}</span>
+                <span style={{ color: "var(--text-muted)", fontSize: "0.9rem" }}>↗</span>
+              </a>
+            ))}
+            <a
+              href="#contact"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                marginTop: "0.5rem",
+                textAlign: "center",
+                padding: "0.8rem",
+                borderRadius: "12px",
+                background: "var(--cream)",
+                color: "#050507",
+                fontWeight: 600,
+                textDecoration: "none",
+                fontSize: "0.95rem",
+              }}
+            >
+              Let&apos;s talk
+            </a>
+            <a
+              href={SITE.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMenuOpen(false)}
+              style={{
+                textAlign: "center",
+                padding: "0.5rem",
+                color: "var(--text-muted)",
+                textDecoration: "none",
+                fontSize: "0.85rem",
+              }}
+            >
+              GitHub ↗
+            </a>
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+
+      <style jsx global>{`
+        @media (max-width: 768px) {
+          .nav-desktop-links {
+            display: none !important;
+          }
+          .nav-mobile-btn {
+            display: block !important;
+          }
+        }
+      `}</style>
+    </>
   );
 }

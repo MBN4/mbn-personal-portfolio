@@ -11,34 +11,62 @@ export const SITE = {
 };
 
 export const NAV_LINKS = [
-  { href: "#about", label: "About" },
   { href: "#work", label: "Work" },
-  { href: "#how-i-work", label: "How I Work" },
-  { href: "#ai-automation", label: "AI Automation" },
+  { href: "#about", label: "About" },
+  { href: "#expertise", label: "Expertise" },
   { href: "#journey", label: "Journey" },
-  { href: "#contact", label: "Contact" },
+  { href: "#skills", label: "Skills" },
 ];
 
-export const STATS = [
+export const PROOF_HIGHLIGHTS = [
   {
-    value: "5",
-    accent: "+",
-    label: "Featured projects",
-    description: "Full-stack, mobile, and AI-automation builds — selected for what they prove, not padded for count.",
+    stat: "5+",
+    label: "real projects shipped across full-stack, mobile & AI automation",
   },
   {
-    value: "2",
-    accent: "+",
-    label: "Live in production",
-    description: "Madina Collar (mobile, web, and admin) and Circle — The AI Universe are both deployed and publicly reachable today.",
+    stat: "2",
+    label: "live in production today — a multi-platform app and a public AI tool",
   },
   {
-    value: "2024",
-    accent: "",
-    label: "Software Engineer since",
-    description: "Working full-stack at Clustox while pursuing an M.S. in Data Science alongside it.",
+    stat: "2024",
+    label: "the year I became a Software Engineer and started building toward AI",
   },
 ];
+
+export const DISCIPLINES = {
+  build: {
+    index: "01 / 03",
+    name: "Build",
+    label: "STRUCTURE",
+    headline: "Give an idea structure.",
+    description:
+      "Responsive interfaces and full-stack features that turn a requirement into working software — primarily on the MERN stack.",
+    linkText: "Explore the frontend work",
+    linkHref: "#work",
+  },
+  automate: {
+    index: "02 / 03",
+    name: "Automate",
+    label: "AI AUTOMATION",
+    headline: "Make software do more of the work.",
+    description:
+      "Wiring LLM APIs (OpenAI, Gemini) into real application logic — chat agents and recommendation engines, not just prompt demos.",
+    linkText: "Explore the AI work",
+    linkHref: "#ai-automation",
+  },
+  learn: {
+    index: "03 / 03",
+    name: "Learn",
+    label: "DATA SCIENCE",
+    headline: "Grow into data-driven decisions.",
+    description:
+      "An ongoing M.S. in Data Science sharpening how I reason about data, modeling, and the systems built on top of both.",
+    linkText: "Explore the journey",
+    linkHref: "#journey",
+  },
+} as const;
+
+export type DisciplineKey = keyof typeof DISCIPLINES;
 
 export const PROCESS_STEPS = [
   { step: "01", title: "Understand the requirement", description: "Start from the actual problem, not an assumed solution." },
@@ -46,27 +74,33 @@ export const PROCESS_STEPS = [
   { step: "03", title: "Build and ship the product", description: "Implement the client, wire it to the API, and get it in front of real use." },
 ];
 
-export const CAPABILITIES = [
+export const ACCORDION_ITEMS = [
   {
-    eyebrow: "01 — Product & Engineering",
-    title: "Build with the full stack.",
+    id: "exp-1",
+    number: "01",
+    category: "PRODUCT & FRONTEND",
+    title: "Build with perspective.",
     description:
-      "End-to-end ownership — PostgreSQL/MongoDB data models, Express/Sequelize APIs, and the React, Next.js, or React Native client on top of them — primarily on the MERN stack.",
-    tags: ["React", "Next.js", "Node.js", "Express", "PostgreSQL", "MongoDB"],
+      "I connect what users need with what the stack can do — clean component hierarchies, responsive interfaces, and state that stays predictable as a product grows.",
+    strengths: "React · Next.js · TypeScript · Tailwind CSS · Framer Motion · Redux/Zustand",
   },
   {
-    eyebrow: "02 — AI & Automation",
-    title: "Make software do more of the work.",
+    id: "exp-2",
+    number: "02",
+    category: "BACKEND & DATA",
+    title: "Make the backend disappear.",
     description:
-      "Wiring LLM APIs (OpenAI, Gemini) and third-party services into real application logic — chat agents, recommendation engines, and automated workflows — not just prompt demos.",
-    tags: ["OpenAI API", "Gemini API", "Firebase", "Workflow automation"],
+      "REST APIs, data modeling, and authentication that just work — so the frontend never has to compensate for a shaky foundation underneath it.",
+    strengths: "Node.js · Express · Sequelize · PostgreSQL · MongoDB · JWT Authentication",
   },
   {
-    eyebrow: "03 — Data & Direction",
-    title: "Grow into data-driven decisions.",
+    id: "exp-3",
+    number: "03",
+    category: "AI & AUTOMATION",
+    title: "Bring intelligence forward.",
     description:
-      "An ongoing M.S. in Data Science is sharpening how I reason about data, modeling, and the systems built on top of both — the next layer under the engineering.",
-    tags: ["Data analysis", "Applied ML", "Ongoing M.S."],
+      "Integrating LLM APIs and third-party services into real product logic — a chat agent that generates structured output, a recommendation engine that filters a real catalog.",
+    strengths: "OpenAI API · Google Gemini API · Firebase · Workflow automation",
   },
 ];
 
@@ -247,29 +281,66 @@ export const EDUCATION = [
   },
 ];
 
-export const SKILLS: { category: string; items: string[] }[] = [
+export type SkillFilter = "all" | "frontend" | "backend" | "ai" | "mobile";
+
+export const SKILL_GROUPS: {
+  id: string;
+  category: Exclude<SkillFilter, "all">;
+  number: string;
+  categoryTitle: string;
+  highlight: string;
+  skills: { name: string; context: string }[];
+}[] = [
   {
-    category: "Frontend",
-    items: ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Framer Motion", "Redux", "Zustand"],
+    id: "grp-frontend",
+    category: "frontend",
+    number: "01",
+    categoryTitle: "FRONTEND",
+    highlight: "Responsive, maintainable client experiences.",
+    skills: [
+      { name: "React & Next.js", context: "Component architecture, routing, data fetching" },
+      { name: "TypeScript / JavaScript", context: "Typed, maintainable application code" },
+      { name: "Tailwind CSS", context: "Design-token-driven, responsive styling" },
+      { name: "Framer Motion", context: "Scroll reveals, hover micro-interactions, page motion" },
+    ],
   },
   {
-    category: "Backend",
-    items: ["Node.js", "Express", "REST APIs", "JWT Authentication", "Sequelize"],
+    id: "grp-backend",
+    category: "backend",
+    number: "02",
+    categoryTitle: "BACKEND & DATA",
+    highlight: "APIs and data models built for real use.",
+    skills: [
+      { name: "Node.js & Express", context: "REST APIs, middleware, route/controller patterns" },
+      { name: "PostgreSQL & Sequelize", context: "Relational data modeling, migrations, queries" },
+      { name: "MongoDB", context: "Document modeling for flexible application data" },
+      { name: "JWT Authentication", context: "Token-based auth, OTP verification, session handling" },
+    ],
   },
   {
-    category: "Data & Databases",
-    items: ["MongoDB", "PostgreSQL"],
+    id: "grp-ai",
+    category: "ai",
+    number: "03",
+    categoryTitle: "AI & AUTOMATION",
+    highlight: "LLMs and automation wired into real products.",
+    skills: [
+      { name: "OpenAI API", context: "Chat-driven features and structured generation" },
+      { name: "Google Gemini API", context: "A second LLM provider in a dual-provider pipeline" },
+      { name: "Firebase", context: "Session persistence for AI-driven conversations" },
+      { name: "Workflow automation", context: "Wiring third-party services into application logic" },
+    ],
   },
   {
-    category: "AI & Automation",
-    items: ["OpenAI API", "Google Gemini API", "LLM-powered chat agents", "Workflow automation", "Firebase"],
-  },
-  {
-    category: "Mobile",
-    items: ["React Native", "Expo"],
-  },
-  {
-    category: "Tooling & Platform",
-    items: ["Git", "GitHub", "Docker", "Postman", "Figma", "Nginx", "PM2"],
+    id: "grp-mobile",
+    category: "mobile",
+    number: "04",
+    categoryTitle: "MOBILE & TOOLING",
+    highlight: "Cross-platform apps and the tools behind them.",
+    skills: [
+      { name: "React Native & Expo", context: "Cross-platform mobile apps, three shipped" },
+      { name: "Zustand / Redux", context: "Predictable client-side state management" },
+      { name: "Git, Docker, Postman", context: "Version control, containers, API testing" },
+      { name: "Nginx & PM2", context: "Production deployment for Node.js services" },
+    ],
   },
 ];

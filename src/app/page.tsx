@@ -1,31 +1,29 @@
-import { Nav } from "@/components/Nav";
-import { Hero } from "@/components/Hero";
-import { Stats } from "@/components/Stats";
-import { About } from "@/components/About";
-import { Projects } from "@/components/Projects";
-import { HowIWork } from "@/components/HowIWork";
-import { AIAutomation } from "@/components/AIAutomation";
-import { JourneySection } from "@/components/Journey";
-import { Contact } from "@/components/Contact";
-import { Footer } from "@/components/Footer";
-import { Loader } from "@/components/Loader";
+import Nav from "@/components/Nav";
+import Hero from "@/components/Hero";
+import ProofStrip from "@/components/ProofStrip";
+import About from "@/components/About";
+import Work from "@/components/Work";
+import ExpertiseJourney from "@/components/ExpertiseJourney";
+import Skills from "@/components/Skills";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+import MotionToggle from "@/components/MotionToggle";
 
 export default function Home() {
   return (
     <>
-      <Loader />
       <Nav />
-      <main className="flex-1">
+      <main>
         <Hero />
-        <Stats />
+        <ProofStrip />
         <About />
-        <Projects />
-        <HowIWork />
-        <AIAutomation />
-        <JourneySection />
+        <Work />
+        <ExpertiseJourney />
+        <Skills />
         <Contact />
       </main>
       <Footer />
+      <MotionToggle />
     </>
   );
 }

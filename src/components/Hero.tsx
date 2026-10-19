@@ -1,130 +1,287 @@
 "use client";
 
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { motion } from "framer-motion";
 import { useMotionOn } from "@/lib/motion-context";
+import { ArrowDownIcon, CornerArrowIcon } from "@/components/icons/Icons";
 
-const NAME_LINE1 = "Bilal";
-const NAME_LINE2 = "Nadeem";
-
-export function Hero() {
-  const { motionOn, toggle } = useMotionOn();
+export default function Hero() {
+  const { motionOn } = useMotionOn();
 
   return (
-    <section id="top" className="relative overflow-hidden pb-16 pt-[120px] md:pt-[140px]">
-      {/* top meta row */}
-      <div className="container-page flex flex-wrap items-center justify-between gap-3">
-        <span className="eyebrow">Engineer · Full-Stack · AI Automation</span>
-        <span className="eyebrow !text-fg-faint">Open to remote &amp; project work</span>
+    <section
+      id="top"
+      style={{
+        position: "relative",
+        minHeight: "100vh",
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        padding: "6rem 2rem 2.5rem",
+        overflow: "hidden",
+        borderBottom: "1px solid var(--border)",
+        backgroundColor: "var(--bg)",
+      }}
+    >
+      {/* Background Central Portrait with Vignette & Dark Fade */}
+      <div
+        style={{
+          position: "absolute",
+          top: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: "100%",
+          maxWidth: "900px",
+          height: "100%",
+          maxHeight: "920px",
+          zIndex: 1,
+          pointerEvents: "none",
+          opacity: 0.88,
+          maskImage:
+            "radial-gradient(circle at 50% 40%, black 40%, transparent 80%), linear-gradient(to bottom, black 50%, transparent 95%)",
+          WebkitMaskImage:
+            "radial-gradient(circle at 50% 40%, black 40%, transparent 80%), linear-gradient(to bottom, black 50%, transparent 95%)",
+        }}
+      >
+        <Image
+          src="/images/hero-portrait.jpg"
+          alt="Bilal Nadeem — Software Engineer"
+          fill
+          priority
+          sizes="(max-width: 900px) 100vw, 900px"
+          style={{
+            objectFit: "cover",
+            objectPosition: "48% 12%",
+            filter: "contrast(1.1) brightness(0.92) grayscale(100%)",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "linear-gradient(to bottom, rgba(5,5,7,0.1) 0%, rgba(5,5,7,0.3) 50%, #050507 96%)",
+          }}
+        />
       </div>
 
-      <div className="container-page mt-10 grid items-center gap-12 md:mt-16 md:grid-cols-[1.1fr_0.9fr] md:gap-10">
-        {/* text column */}
-        <div>
-          <motion.h1
-            initial={{ opacity: 0, y: motionOn ? 28 : 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-balance text-[3.1rem] font-medium leading-[0.98] tracking-tight sm:text-7xl md:text-[5.2rem]"
-          >
-            {NAME_LINE1}
-            <br />
-            <em className="italic text-fg-muted">{NAME_LINE2}</em>
-          </motion.h1>
+      {/* Hairline background grid */}
+      <div
+        style={{
+          position: "absolute",
+          inset: 0,
+          zIndex: 0,
+          backgroundImage:
+            "linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px)",
+          backgroundSize: "120px 120px",
+          opacity: 0.6,
+          pointerEvents: "none",
+        }}
+      />
 
-          <motion.p
-            initial={{ opacity: 0, y: motionOn ? 18 : 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.3 }}
-            className="mt-7 max-w-md text-balance text-lg leading-relaxed text-fg-muted"
-          >
-            Software Engineer at Clustox. I build full-stack products on the MERN stack, and I&apos;m
-            growing into AI automation while pursuing an M.S. in Data Science.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: motionOn ? 18 : 0 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.42 }}
-            className="mt-9 flex flex-wrap items-center gap-4"
-          >
-            <a
-              href="#work"
-              className="group inline-flex items-center gap-2 rounded-full border border-fg/80 px-6 py-3.5 text-sm font-medium text-fg transition-colors hover:border-cream hover:text-cream"
-            >
-              Explore my work
-              <ArrowDown size={15} className="transition-transform group-hover:translate-y-0.5" />
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-fg-muted underline-offset-4 transition-colors hover:text-fg hover:underline"
-            >
-              Start a conversation
-              <ArrowUpRight size={15} />
-            </a>
-          </motion.div>
+      {/* Topline Metadata Bar */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          maxWidth: "1360px",
+          margin: "0 auto",
+          paddingTop: "1rem",
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.74rem",
+          letterSpacing: "0.14em",
+          textTransform: "uppercase",
+          color: "var(--text-muted)",
+        }}
+      >
+        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem" }}>
+          <span className="live-dot" />
+          <span>ENGINEER. FULL-STACK. AI AUTOMATION.</span>
         </div>
+        <div className="hidden-sm" style={{ color: "var(--text-muted)" }}>
+          OPEN TO REMOTE WORK · THINKING BEYOND
+        </div>
+      </div>
 
-        {/* portrait column */}
+      {/* Left Vertical Annotation (Desktop only) */}
+      <div
+        className="hidden-sm"
+        style={{
+          position: "absolute",
+          left: "2.5rem",
+          top: "46%",
+          transform: "translateY(-50%)",
+          zIndex: 10,
+          display: "flex",
+          flexDirection: "column",
+          gap: "1.25rem",
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.7rem",
+          letterSpacing: "0.15em",
+          color: "var(--text-dim)",
+          textTransform: "uppercase",
+        }}
+      >
+        <span style={{ color: "var(--text-muted)" }}>01 / PRESENCE</span>
+        <div style={{ width: "20px", height: "1px", background: "var(--border)" }} />
+        <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+          <span>FULL-STACK</span>
+          <span>AI AUTOMATION</span>
+          <span>DATA SCIENCE</span>
+        </div>
+      </div>
+
+      {/* Center Main Stage Content */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          textAlign: "center",
+          maxWidth: "1080px",
+          margin: "auto auto",
+          padding: "2rem 1rem",
+        }}
+      >
         <motion.div
-          initial={{ opacity: 0, scale: motionOn ? 0.96 : 1 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-2xl border border-border md:max-w-none"
+          initial={{ opacity: 0, y: motionOn ? 15 : 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+          style={{
+            fontFamily: "var(--font-mono)",
+            fontSize: "0.75rem",
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: "var(--text-muted)",
+            marginBottom: "1.25rem",
+          }}
         >
-          <Image
-            src="/images/hero-portrait.jpg"
-            alt="Portrait of Bilal Nadeem"
-            fill
-            priority
-            sizes="(min-width: 768px) 40vw, 90vw"
-            className="halftone object-cover"
-            style={{ objectPosition: "50% 20%" }}
-          />
-          <div className="halftone-fade absolute inset-0" />
+          A Practical Approach to Software
+        </motion.div>
+
+        <motion.h1
+          initial={{ opacity: 0, y: motionOn ? 30 : 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            fontFamily: "var(--font-serif)",
+            fontSize: "clamp(4.2rem, 11vw, 9.5rem)",
+            fontWeight: 400,
+            lineHeight: 0.95,
+            letterSpacing: "-0.025em",
+            color: "#ffffff",
+            margin: "0 0 1.75rem 0",
+          }}
+        >
+          Bilal <em style={{ fontStyle: "italic", color: "var(--cream)", fontWeight: 400 }}>Nadeem</em>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: motionOn ? 20 : 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, delay: 0.35 }}
+          style={{
+            fontFamily: "var(--font-sans)",
+            fontSize: "clamp(1rem, 2vw, 1.25rem)",
+            fontWeight: 400,
+            lineHeight: 1.6,
+            color: "var(--text-muted)",
+            maxWidth: "640px",
+            margin: "0 auto 2.25rem",
+          }}
+        >
+          Software Engineer at Clustox. I build full-stack products on the MERN stack,
+          <br className="desktop-break" /> and I&apos;m growing into AI automation and data science.
+        </motion.p>
+
+        <motion.div
+          initial={{ opacity: 0, y: motionOn ? 15 : 0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "1.5rem",
+            flexWrap: "wrap",
+          }}
+        >
+          <a
+            href="#work"
+            className="pill-button-dark"
+            style={{
+              padding: "0.75rem 1.75rem",
+              borderRadius: "9999px",
+              fontSize: "0.9rem",
+              display: "inline-flex",
+              alignItems: "center",
+              gap: "0.5rem",
+            }}
+          >
+            <span>Explore my work</span>
+            <ArrowDownIcon />
+          </a>
+
+          <a href="#contact" className="editorial-link" style={{ fontSize: "0.92rem", fontWeight: 500 }}>
+            <span>Start a conversation</span>
+            <CornerArrowIcon />
+          </a>
         </motion.div>
       </div>
 
-      {/* bottom meta row */}
-      <div className="container-page mt-16 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6 md:mt-24">
+      {/* Bottom Status & Discover Bar */}
+      <div
+        style={{
+          position: "relative",
+          zIndex: 10,
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "100%",
+          maxWidth: "1360px",
+          margin: "0 auto",
+          paddingTop: "2rem",
+          fontFamily: "var(--font-mono)",
+          fontSize: "0.72rem",
+          letterSpacing: "0.12em",
+          textTransform: "uppercase",
+          color: "var(--text-dim)",
+          borderTop: "1px solid rgba(255, 255, 255, 0.05)",
+        }}
+      >
         <a
           href="#about"
-          className="group flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-fg-muted transition-colors hover:text-fg"
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "0.5rem",
+            color: "var(--text-muted)",
+            textDecoration: "none",
+            transition: "color 0.2s ease",
+          }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#ffffff")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--text-muted)")}
         >
-          Scroll to discover
-          <ArrowDown size={13} className="transition-transform group-hover:translate-y-0.5" />
+          <span style={{ display: "inline-block", width: "18px", height: "1px", background: "currentColor" }} />
+          <span>SCROLL TO DISCOVER</span>
+          <ArrowDownIcon width={12} height={12} />
         </a>
-        <span className="hidden text-xs uppercase tracking-[0.2em] text-fg-faint sm:inline">
-          Engineering since 2024
-        </span>
-        <button
-          onClick={toggle}
-          className="flex items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-fg-muted transition-colors hover:text-fg"
-          aria-pressed={motionOn}
+
+        <div className="hidden-sm" style={{ color: "var(--text-muted)" }}>
+          ENGINEERING SINCE 2024
+        </div>
+
+        <a
+          href="#work"
+          style={{ color: "var(--text-muted)", textDecoration: "none", transition: "color 0.2s ease" }}
+          onMouseEnter={(e) => ((e.currentTarget as HTMLElement).style.color = "#ffffff")}
+          onMouseLeave={(e) => ((e.currentTarget as HTMLElement).style.color = "var(--text-muted)")}
         >
-          <span
-            className={`relative inline-flex h-4 w-8 items-center rounded-full transition-colors ${
-              motionOn ? "bg-accent" : "bg-border"
-            }`}
-          >
-            <motion.span
-              className="inline-block h-3 w-3 rounded-full bg-bg"
-              animate={{ x: motionOn ? 16 : 2 }}
-              transition={{ duration: 0.2 }}
-            />
-          </span>
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={motionOn ? "on" : "off"}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              Motion {motionOn ? "On" : "Off"}
-            </motion.span>
-          </AnimatePresence>
-        </button>
+          AN ONGOING EXPLORATION ↗
+        </a>
       </div>
     </section>
   );

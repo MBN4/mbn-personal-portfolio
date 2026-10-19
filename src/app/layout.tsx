@@ -1,21 +1,27 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces } from "next/font/google";
+import { DM_Sans, Instrument_Serif, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
-import { SmoothScroll } from "@/components/SmoothScroll";
-import { BackToTop } from "@/components/BackToTop";
 import { MotionProvider } from "@/lib/motion-context";
+import Cursor from "@/components/Cursor";
 
-const inter = Inter({
-  variable: "--font-inter",
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
   display: "swap",
 });
 
-const fraunces = Fraunces({
-  variable: "--font-fraunces",
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-instrument-serif",
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400"],
   style: ["normal", "italic"],
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains-mono",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
   display: "swap",
 });
 
@@ -55,14 +61,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${fraunces.variable} h-full antialiased`}
+      className={`${dmSans.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable}`}
     >
-      <body className="min-h-full flex flex-col bg-bg text-fg">
+      <body className="sarthak-theme">
         <MotionProvider>
-          <SmoothScroll>
-            {children}
-            <BackToTop />
-          </SmoothScroll>
+          <Cursor />
+          {children}
         </MotionProvider>
       </body>
     </html>
