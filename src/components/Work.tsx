@@ -8,6 +8,10 @@ import { useMotionOn } from "@/lib/motion-context";
 
 const CARD_HOVER = { y: -8, boxShadow: "0 32px 70px rgba(0,0,0,0.6)" };
 
+function glowVars(motionOn: boolean): React.CSSProperties {
+  return { "--glow-state": motionOn ? "running" : "paused" } as React.CSSProperties;
+}
+
 const [madinaCollar, circle, aiAnalyst, reelBite, kitchens] = PROJECTS;
 
 function hostnameOf(url: string) {
@@ -72,13 +76,13 @@ export default function Work() {
           <div
             className="glow-sweep"
             style={{
+              ...glowVars(motionOn),
               position: "relative",
               width: "100%",
               minHeight: "160px",
               display: "flex",
               alignItems: "center",
               padding: "1.75rem 2rem 0",
-              animationPlayState: motionOn ? "running" : "paused",
             }}
           >
             <span
@@ -147,7 +151,7 @@ export default function Work() {
 
                 <div
                   className="glow-sweep"
-                  style={{ position: "relative", width: "100%", minHeight: "140px", display: "flex", alignItems: "flex-end", padding: "1.25rem", animationPlayState: motionOn ? "running" : "paused" }}
+                  style={{ ...glowVars(motionOn), position: "relative", width: "100%", minHeight: "140px", display: "flex", alignItems: "flex-end", padding: "1.25rem" }}
                 >
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.64rem", letterSpacing: "0.1em", background: "rgba(9, 9, 13, 0.85)", backdropFilter: "blur(8px)", padding: "0.3rem 0.65rem", borderRadius: "4px", color: "var(--cream)", textTransform: "uppercase" }}>
                     {project.category}
