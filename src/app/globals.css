@@ -314,6 +314,34 @@ body.sarthak-theme::after {
   border-color: rgba(255, 255, 255, 0.24);
 }
 
+/* Infinitely drifting accent glow, used behind project preview panels */
+.glow-sweep {
+  background-image: radial-gradient(circle, rgba(255, 112, 51, 0.3) 0%, transparent 60%), #09090d;
+  background-size: 220% 220%, auto;
+  background-repeat: no-repeat;
+  animation: glowSweep 8s ease-in-out infinite alternate;
+  transition: background-size 0.4s ease;
+}
+.glow-sweep.glow-sweep-fast {
+  animation-duration: 3.5s;
+}
+@keyframes glowSweep {
+  0% {
+    background-position: 0% 50%, 0 0;
+  }
+  100% {
+    background-position: 100% 50%, 0 0;
+  }
+}
+
+/* Project card hover lift */
+.project-card {
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+.project-card:hover {
+  border-color: rgba(255, 112, 51, 0.45) !important;
+}
+
 @media (max-width: 768px) {
   .hidden-sm {
     display: none !important;

@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, type Variants } from "framer-motion";
+import { motion, type TargetAndTransition, type Transition, type Variants } from "framer-motion";
 import { useMotionOn } from "@/lib/motion-context";
 
 type RevealProps = {
@@ -9,9 +9,12 @@ type RevealProps = {
   style?: React.CSSProperties;
   delay?: number;
   y?: number;
+  /** Optional whileHover target, e.g. { y: -8, boxShadow: "..." } */
+  hover?: TargetAndTransition;
+  hoverTransition?: Transition;
 };
 
-export function Reveal({ children, className, style, delay = 0, y = 28 }: RevealProps) {
+export function Reveal({ children, className, style, delay = 0, y = 28, hover, hoverTransition }: RevealProps) {
   const { motionOn } = useMotionOn();
 
   const variants: Variants = {
@@ -29,6 +32,8 @@ export function Reveal({ children, className, style, delay = 0, y = 28 }: Reveal
       style={style}
       initial="hidden"
       whileInView="visible"
+      whileHover={motionOn ? hover : undefined}
+      transition={hover ? hoverTransition ?? { duration: 0.3, ease: [0.16, 1, 0.3, 1] } : undefined}
       viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
       variants={variants}
     >

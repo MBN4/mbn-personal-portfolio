@@ -4,6 +4,9 @@ import { useState } from "react";
 import { PROJECTS, SITE } from "@/lib/data";
 import { ArrowRightIcon, CornerArrowIcon } from "@/components/icons/Icons";
 import { Reveal } from "@/components/Reveal";
+import { useMotionOn } from "@/lib/motion-context";
+
+const CARD_HOVER = { y: -8, boxShadow: "0 32px 70px rgba(0,0,0,0.6)" };
 
 const [madinaCollar, circle, aiAnalyst, reelBite, kitchens] = PROJECTS;
 
@@ -17,6 +20,7 @@ function hostnameOf(url: string) {
 
 export default function Work() {
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const { motionOn } = useMotionOn();
 
   return (
     <section id="work" style={{ padding: "7rem 2rem", maxWidth: "1360px", margin: "0 auto", borderBottom: "1px solid var(--border)" }}>
@@ -42,6 +46,8 @@ export default function Work() {
       <div style={{ display: "flex", flexDirection: "column", gap: "5rem" }}>
         {/* Flagship project */}
         <Reveal
+          className="project-card"
+          hover={CARD_HOVER}
           style={{
             display: "flex",
             flexDirection: "column",
@@ -64,15 +70,15 @@ export default function Work() {
           </div>
 
           <div
+            className="glow-sweep"
             style={{
               position: "relative",
               width: "100%",
               minHeight: "160px",
-              background:
-                "radial-gradient(circle at 30% 20%, rgba(255,112,51,0.12), transparent 55%), #09090d",
               display: "flex",
               alignItems: "center",
               padding: "1.75rem 2rem 0",
+              animationPlayState: motionOn ? "running" : "paused",
             }}
           >
             <span
@@ -122,7 +128,13 @@ export default function Work() {
             const demoLink = project.links.find((l) => l.label.toLowerCase().includes("demo"));
             const codeLink = project.links.find((l) => l.label.toLowerCase().includes("code")) ?? project.links[0];
             return (
-              <Reveal key={project.slug} delay={i * 0.1} style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 20px 45px rgba(0,0,0,0.4)" }}>
+              <Reveal
+                key={project.slug}
+                delay={i * 0.1}
+                className="project-card"
+                hover={CARD_HOVER}
+                style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "16px", overflow: "hidden", display: "flex", flexDirection: "column", boxShadow: "0 20px 45px rgba(0,0,0,0.4)" }}
+              >
                 <div className="browser-bar">
                   <div className="browser-dots">
                     <span />
@@ -133,7 +145,10 @@ export default function Work() {
                   <CornerArrowIcon width={12} height={12} />
                 </div>
 
-                <div style={{ position: "relative", width: "100%", minHeight: "140px", background: "radial-gradient(circle at 70% 30%, rgba(255,112,51,0.1), transparent 55%), #09090d", display: "flex", alignItems: "flex-end", padding: "1.25rem" }}>
+                <div
+                  className="glow-sweep"
+                  style={{ position: "relative", width: "100%", minHeight: "140px", display: "flex", alignItems: "flex-end", padding: "1.25rem", animationPlayState: motionOn ? "running" : "paused" }}
+                >
                   <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.64rem", letterSpacing: "0.1em", background: "rgba(9, 9, 13, 0.85)", backdropFilter: "blur(8px)", padding: "0.3rem 0.65rem", borderRadius: "4px", color: "var(--cream)", textTransform: "uppercase" }}>
                     {project.category}
                   </span>
