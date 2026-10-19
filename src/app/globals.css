@@ -321,44 +321,37 @@ body.sarthak-theme::after {
   background: #09090d;
   --glow-state: running;
 }
-.glow-sweep::before,
-.glow-sweep::after {
+.glow-sweep::before {
   content: "";
   position: absolute;
   top: 50%;
-  width: 70%;
-  aspect-ratio: 1;
-  max-width: 320px;
+  width: 115%;
+  aspect-ratio: 2.2 / 1;
   border-radius: 50%;
   background: radial-gradient(
-    circle,
-    rgba(255, 112, 51, 0.55) 0%,
-    rgba(255, 112, 51, 0.2) 42%,
-    transparent 72%
+    ellipse,
+    rgba(255, 112, 51, 0.5) 0%,
+    rgba(255, 112, 51, 0.22) 45%,
+    transparent 74%
   );
   transform: translate(-50%, -50%);
-  filter: blur(22px);
-  animation: glowDrift 10s linear infinite;
+  filter: blur(30px);
+  animation: glowDrift 11s linear infinite;
   animation-play-state: var(--glow-state);
   pointer-events: none;
 }
-.glow-sweep::after {
-  animation-delay: -5s;
-  opacity: 0.6;
-}
 @keyframes glowDrift {
   0% {
-    left: -15%;
+    left: -25%;
   }
   100% {
-    left: 115%;
+    left: 125%;
   }
 }
 
-.project-card:hover .glow-sweep::before,
-.project-card:hover .glow-sweep::after {
-  animation-duration: 5s;
-  filter: blur(16px) brightness(1.4);
+.project-card:hover .glow-sweep::before {
+  animation-duration: 6s;
+  filter: blur(24px) brightness(1.35);
 }
 
 /* Project card hover lift */

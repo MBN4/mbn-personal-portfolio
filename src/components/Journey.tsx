@@ -21,11 +21,11 @@ function StoryBeat({
     offset: ["start 0.85", "start 0.45"],
   });
 
-  const dotScale = useTransform(scrollYProgress, [0, 1], [0.4, 1]);
+  const dotScale = useTransform(scrollYProgress, [0, 1], [0.35, 1.15]);
   const dotGlow = useTransform(scrollYProgress, [0, 1], [0, 1]);
   const dotShadow = useTransform(
     dotGlow,
-    (v) => `0 0 ${v * 24}px rgba(255, 112, 51, ${v * 0.75})`
+    (v) => `0 0 ${v * 38}px ${v * 6}px rgba(255, 112, 51, ${v * 0.65})`
   );
 
   return (
@@ -58,12 +58,20 @@ function StoryBeat({
       />
 
       <motion.div
-        initial={{ opacity: 0, x: motionOn ? (isRight ? 60 : -60) : 0, y: motionOn ? 20 : 0 }}
-        whileInView={{ opacity: 1, x: 0, y: 0 }}
+        initial={{
+          opacity: 0,
+          x: motionOn ? (isRight ? 60 : -60) : 0,
+          y: motionOn ? 20 : 0,
+          scale: motionOn ? 0.94 : 1,
+          filter: motionOn ? "blur(10px)" : "blur(0px)",
+        }}
+        whileInView={{ opacity: 1, x: 0, y: 0, scale: 1, filter: "blur(0px)" }}
         viewport={{ once: true, margin: "-15% 0px -15% 0px" }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="journey-card"
         style={{
+          position: "relative",
+          zIndex: 2,
           gridColumn: "1 / -1",
           justifySelf: isRight ? "end" : "start",
           width: "100%",
@@ -129,6 +137,7 @@ export default function Journey() {
     offset: ["start 0.7", "end 0.4"],
   });
   const lineProgress = useSpring(scrollYProgress, { stiffness: 80, damping: 24 });
+  const beaconTop = useTransform(lineProgress, (v) => `${Math.min(Math.max(v, 0), 1) * 100}%`);
 
   return (
     <section
@@ -162,6 +171,27 @@ export default function Journey() {
       </motion.div>
 
       <div ref={sectionRef} style={{ position: "relative" }}>
+        {/* Ambient spotlight that descends with scroll progress */}
+        {motionOn && (
+          <motion.div
+            aria-hidden
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: beaconTop,
+              width: "760px",
+              height: "760px",
+              marginLeft: "-380px",
+              marginTop: "-380px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle, rgba(255, 112, 51, 0.1), transparent 70%)",
+              filter: "blur(10px)",
+              pointerEvents: "none",
+              zIndex: 0,
+            }}
+          />
+        )}
+
         {/* Static track */}
         <div
           aria-hidden
@@ -193,6 +223,28 @@ export default function Journey() {
           className="journey-track"
         />
 
+        {/* Traveling beacon tracking overall scroll progress */}
+        {motionOn && (
+          <motion.div
+            aria-hidden
+            className="journey-beacon"
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: beaconTop,
+              width: "20px",
+              height: "20px",
+              marginLeft: "-10px",
+              marginTop: "-10px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,112,51,0.9) 45%, transparent 75%)",
+              boxShadow: "0 0 32px 8px rgba(255, 112, 51, 0.55)",
+              pointerEvents: "none",
+              zIndex: 4,
+            }}
+          />
+        )}
+
         {JOURNEY_STORY.map((beat, i) => (
           <StoryBeat key={beat.marker} beat={beat} index={i} />
         ))}
@@ -205,6 +257,9 @@ export default function Journey() {
           }
           .journey-dot {
             left: 11px !important;
+          }
+          .journey-beacon {
+            left: 18px !important;
           }
           .journey-card {
             max-width: 100% !important;

@@ -84,11 +84,11 @@ export default function Nav() {
           animate={{
             y: 0,
             opacity: 1,
-            backgroundColor: scrolled ? "rgba(12, 12, 16, 0.82)" : "rgba(10, 9, 8, 0.55)",
+            backgroundColor: scrolled ? "rgba(12, 12, 16, 0.82)" : "rgba(0, 0, 0, 0)",
             borderRadius: scrolled ? 9999 : 0,
             boxShadow: scrolled
               ? "0 12px 36px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08)"
-              : "0 1px 0 rgba(255, 255, 255, 0.06)",
+              : "0 0 0 rgba(0, 0, 0, 0)",
           }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           style={{
@@ -99,8 +99,8 @@ export default function Nav() {
             gap: "1.75rem",
             width: scrolled ? "auto" : "100%",
             padding: scrolled ? "0.5rem 0.6rem 0.5rem 1.4rem" : "1.1rem 2rem",
-            backdropFilter: "blur(24px)",
-            WebkitBackdropFilter: "blur(24px)",
+            backdropFilter: scrolled ? "blur(24px)" : "none",
+            WebkitBackdropFilter: scrolled ? "blur(24px)" : "none",
             border: scrolled ? "1px solid rgba(255, 255, 255, 0.11)" : "1px solid transparent",
             maxWidth: "100%",
           }}
