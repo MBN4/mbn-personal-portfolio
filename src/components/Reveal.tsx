@@ -1,6 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
+import { useMotionOn } from "@/lib/motion-context";
 
 type RevealProps = {
   children: React.ReactNode;
@@ -11,10 +12,10 @@ type RevealProps = {
 };
 
 export function Reveal({ children, className, delay = 0, y = 24, as = "div" }: RevealProps) {
-  const reduceMotion = useReducedMotion();
+  const { motionOn } = useMotionOn();
 
   const variants: Variants = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : y },
+    hidden: { opacity: 0, y: motionOn ? y : 0 },
     visible: {
       opacity: 1,
       y: 0,
@@ -75,9 +76,9 @@ export function RevealItem({
   className?: string;
   y?: number;
 }) {
-  const reduceMotion = useReducedMotion();
+  const { motionOn } = useMotionOn();
   const variants: Variants = {
-    hidden: { opacity: 0, y: reduceMotion ? 0 : y },
+    hidden: { opacity: 0, y: motionOn ? y : 0 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } },
   };
   return (

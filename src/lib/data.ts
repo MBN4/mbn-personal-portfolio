@@ -12,12 +12,83 @@ export const SITE = {
 
 export const NAV_LINKS = [
   { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#skills", label: "Skills" },
-  { href: "#projects", label: "Projects" },
+  { href: "#work", label: "Work" },
+  { href: "#how-i-work", label: "How I Work" },
   { href: "#ai-automation", label: "AI Automation" },
-  { href: "#education", label: "Education" },
+  { href: "#journey", label: "Journey" },
   { href: "#contact", label: "Contact" },
+];
+
+export const STATS = [
+  {
+    value: "5",
+    accent: "+",
+    label: "Featured projects",
+    description: "Full-stack, mobile, and AI-automation builds — selected for what they prove, not padded for count.",
+  },
+  {
+    value: "2",
+    accent: "+",
+    label: "Live in production",
+    description: "Madina Collar (mobile, web, and admin) and Circle — The AI Universe are both deployed and publicly reachable today.",
+  },
+  {
+    value: "2024",
+    accent: "",
+    label: "Software Engineer since",
+    description: "Working full-stack at Clustox while pursuing an M.S. in Data Science alongside it.",
+  },
+];
+
+export const PROCESS_STEPS = [
+  { step: "01", title: "Understand the requirement", description: "Start from the actual problem, not an assumed solution." },
+  { step: "02", title: "Shape the data and the API", description: "Model the data, design the endpoints, decide what the client actually needs." },
+  { step: "03", title: "Build and ship the product", description: "Implement the client, wire it to the API, and get it in front of real use." },
+];
+
+export const CAPABILITIES = [
+  {
+    eyebrow: "01 — Product & Engineering",
+    title: "Build with the full stack.",
+    description:
+      "End-to-end ownership — PostgreSQL/MongoDB data models, Express/Sequelize APIs, and the React, Next.js, or React Native client on top of them — primarily on the MERN stack.",
+    tags: ["React", "Next.js", "Node.js", "Express", "PostgreSQL", "MongoDB"],
+  },
+  {
+    eyebrow: "02 — AI & Automation",
+    title: "Make software do more of the work.",
+    description:
+      "Wiring LLM APIs (OpenAI, Gemini) and third-party services into real application logic — chat agents, recommendation engines, and automated workflows — not just prompt demos.",
+    tags: ["OpenAI API", "Gemini API", "Firebase", "Workflow automation"],
+  },
+  {
+    eyebrow: "03 — Data & Direction",
+    title: "Grow into data-driven decisions.",
+    description:
+      "An ongoing M.S. in Data Science is sharpening how I reason about data, modeling, and the systems built on top of both — the next layer under the engineering.",
+    tags: ["Data analysis", "Applied ML", "Ongoing M.S."],
+  },
+];
+
+export const JOURNEY = [
+  {
+    year: "2024",
+    title: "Completed the degree, joined the team.",
+    description:
+      "Finished a B.S. in Computer Science and joined Clustox as a Software Engineer, building full-stack web applications on the MERN stack.",
+  },
+  {
+    year: "2024 — Present",
+    title: "Full-stack engineering, day to day.",
+    description:
+      "Working across the stack in a professional engineering team — API design, data modeling, and frontend implementation on real client work.",
+  },
+  {
+    year: "Ongoing",
+    title: "Building the next layer: data and AI.",
+    description:
+      "Pursuing an M.S. in Data Science while building AI-powered side projects — a chat agent, a recommendation engine — to turn that study into shipped software.",
+  },
 ];
 
 export type Project = {
@@ -201,11 +272,4 @@ export const SKILLS: { category: string; items: string[] }[] = [
     category: "Tooling & Platform",
     items: ["Git", "GitHub", "Docker", "Postman", "Figma", "Nginx", "PM2"],
   },
-];
-
-export const ROLES = [
-  "Software Engineer",
-  "Full-Stack Developer",
-  "MERN Stack Developer",
-  "AI Automation Developer",
 ];

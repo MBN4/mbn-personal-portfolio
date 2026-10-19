@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { NAV_LINKS, SITE } from "@/lib/data";
 
 export function Nav() {
@@ -47,18 +47,15 @@ export function Nav() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
-        scrolled ? "bg-bg/80 backdrop-blur-md border-b border-border" : "bg-transparent"
+        scrolled ? "bg-bg/85 backdrop-blur-md" : "bg-transparent"
       }`}
     >
-      <nav className="container-page flex h-[72px] items-center justify-between">
-        <a
-          href="#top"
-          className="font-display text-lg font-semibold tracking-tight text-fg"
-        >
-          BN<span className="text-accent">.</span>
+      <nav className="container-page flex h-[76px] items-center justify-between">
+        <a href="#top" className="font-display text-lg font-medium tracking-tight text-fg">
+          Bilal Nadeem
         </a>
 
-        <ul className="hidden md:flex items-center gap-1">
+        <ul className="hidden items-center gap-1 lg:flex">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
               <a
@@ -80,26 +77,17 @@ export function Nav() {
           ))}
         </ul>
 
-        <div className="hidden md:flex items-center gap-3">
-          <a
-            href={SITE.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="rounded-full border border-border px-4 py-2 text-sm text-fg-muted transition-colors hover:border-accent/60 hover:text-fg"
-          >
-            GitHub
-          </a>
-          <a
-            href="#contact"
-            className="rounded-full bg-accent px-4 py-2 text-sm font-medium text-bg transition-transform hover:scale-[1.03]"
-          >
-            Contact Me
-          </a>
-        </div>
+        <a
+          href="#contact"
+          className="hidden items-center gap-1.5 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-fg transition-colors hover:border-cream/60 hover:text-cream lg:inline-flex"
+        >
+          Let&apos;s Talk
+          <ArrowUpRight size={15} />
+        </a>
 
         <button
           aria-label={open ? "Close menu" : "Open menu"}
-          className="md:hidden rounded-full border border-border p-2 text-fg"
+          className="rounded-full border border-border p-2 text-fg lg:hidden"
           onClick={() => setOpen((v) => !v)}
         >
           {open ? <X size={20} /> : <Menu size={20} />}
@@ -113,7 +101,7 @@ export function Nav() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="md:hidden overflow-hidden border-b border-border bg-bg"
+            className="overflow-hidden border-t border-border bg-bg lg:hidden"
           >
             <ul className="container-page flex flex-col gap-1 py-4">
               {NAV_LINKS.map((link) => (
@@ -131,9 +119,20 @@ export function Nav() {
                 <a
                   href="#contact"
                   onClick={() => setOpen(false)}
-                  className="block rounded-full bg-accent px-4 py-3 text-center text-sm font-medium text-bg"
+                  className="flex items-center justify-center gap-1.5 rounded-full border border-border px-4 py-3 text-sm font-medium text-fg"
                 >
-                  Contact Me
+                  Let&apos;s Talk
+                  <ArrowUpRight size={15} />
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-3 py-2 text-center text-sm text-fg-muted"
+                >
+                  GitHub ↗
                 </a>
               </li>
             </ul>

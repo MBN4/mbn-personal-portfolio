@@ -1,7 +1,8 @@
+import { ArrowUpRight } from "lucide-react";
 import { SITE } from "@/lib/data";
 import { FiverrMark, GithubMark, LinkedinMark } from "@/components/icons/Brand";
 import { Reveal } from "@/components/Reveal";
-import { SectionHeading } from "@/components/SectionHeading";
+import { SectionEyebrow } from "@/components/SectionHeading";
 
 const CHANNELS = [
   {
@@ -26,32 +27,48 @@ const CHANNELS = [
 
 export function Contact() {
   return (
-    <section id="contact" className="relative py-28 md:py-36">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-0 h-[360px] w-[640px] -translate-x-1/2 rounded-full opacity-[0.1] blur-3xl"
-        style={{ background: "radial-gradient(circle, var(--accent), transparent 70%)" }}
-      />
-      <div className="container-page relative">
-        <SectionHeading
-          eyebrow="Contact"
-          title="Let's build something"
-          description="Open to full-time roles, remote positions, and well-scoped freelance or AI automation projects. The fastest way to reach me is through LinkedIn or Fiverr."
-        />
+    <section id="contact" className="relative py-24 md:py-32">
+      <div className="container-page">
+        <SectionEyebrow number="06" label="The next chapter" />
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-3">
+        <Reveal delay={0.08}>
+          <h2 className="font-display mt-6 max-w-3xl text-balance text-5xl font-medium leading-[1.05] sm:text-6xl md:text-7xl">
+            Something great
+            <br />
+            starts with <em className="italic text-fg-muted">a hello.</em>
+          </h2>
+        </Reveal>
+
+        <Reveal delay={0.16}>
+          <a
+            href="#contact-channels"
+            className="mt-8 inline-flex items-center gap-2 border-b border-fg/40 pb-1 text-base font-medium text-fg transition-colors hover:border-cream hover:text-cream"
+          >
+            Let&apos;s connect
+            <ArrowUpRight size={17} />
+          </a>
+        </Reveal>
+
+        <Reveal delay={0.2}>
+          <p className="mt-4 max-w-sm text-sm leading-relaxed text-fg-muted">
+            Open to full-time roles, remote positions, and well-scoped freelance or AI automation
+            projects.
+          </p>
+        </Reveal>
+
+        <div id="contact-channels" className="mt-16 grid gap-5 scroll-mt-28 sm:grid-cols-3">
           {CHANNELS.map((channel, i) => (
             <Reveal key={channel.label} delay={i * 0.08}>
               <a
                 href={channel.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group flex h-full flex-col rounded-2xl border border-border bg-surface/60 p-6 transition-all hover:-translate-y-1 hover:border-accent/50"
+                className="group flex h-full flex-col rounded-2xl border border-border p-6 transition-all hover:-translate-y-1 hover:border-cream/50"
               >
-                <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-border bg-bg text-fg transition-colors group-hover:border-accent/60 group-hover:text-accent">
+                <span className="flex h-11 w-11 items-center justify-center rounded-xl border border-border text-fg transition-colors group-hover:border-accent/60 group-hover:text-accent">
                   <channel.icon />
                 </span>
-                <h3 className="font-display mt-5 text-lg font-semibold text-fg">
+                <h3 className="font-display mt-5 text-lg font-medium text-fg">
                   {channel.label}
                 </h3>
                 <p className="mt-1 text-sm text-fg-muted">{channel.description}</p>

@@ -2,16 +2,14 @@
 
 import { useEffect, useRef } from "react";
 import Lenis from "lenis";
+import { useMotionOn } from "@/lib/motion-context";
 
 export function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<Lenis | null>(null);
+  const { motionOn } = useMotionOn();
 
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (prefersReducedMotion) return;
+    if (!motionOn) return;
 
     const lenis = new Lenis({
       duration: 1.1,
@@ -20,12 +18,21 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
     });
     lenisRef.current = lenis;
 
+    let frame: number;
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      frame = requestAnimationFrame(raf);
     }
-    requestAnimationFrame(raf);
+    frame = requestAnimationFrame(raf);
 
+    return () => {
+      cancelAnimationFrame(frame);
+      lenis.destroy();
+      lenisRef.current = null;
+    };
+  }, [motionOn]);
+
+  useEffect(() => {
     const onAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a[href^="#"]');
@@ -35,16 +42,16 @@ export function SmoothScroll({ children }: { children: React.ReactNode }) {
       const el = document.querySelector(href);
       if (!el) return;
       e.preventDefault();
-      lenis.scrollTo(el as HTMLElement, { offset: -88 });
+      if (lenisRef.current) {
+        lenisRef.current.scrollTo(el as HTMLElement, { offset: -88 });
+      } else {
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
       history.pushState(null, "", href);
     };
 
     document.addEventListener("click", onAnchorClick);
-
-    return () => {
-      document.removeEventListener("click", onAnchorClick);
-      lenis.destroy();
-    };
+    return () => document.removeEventListener("click", onAnchorClick);
   }, []);
 
   return <>{children}</>;

@@ -1,11 +1,11 @@
 import { Nav } from "@/components/Nav";
 import { Hero } from "@/components/Hero";
+import { Stats } from "@/components/Stats";
 import { About } from "@/components/About";
-import { Experience } from "@/components/Experience";
-import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
+import { HowIWork } from "@/components/HowIWork";
 import { AIAutomation } from "@/components/AIAutomation";
-import { Education } from "@/components/Education";
+import { JourneySection } from "@/components/Journey";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { Loader } from "@/components/Loader";
@@ -17,12 +17,12 @@ export default function Home() {
       <Nav />
       <main className="flex-1">
         <Hero />
+        <Stats />
         <About />
-        <Experience />
-        <Skills />
         <Projects />
+        <HowIWork />
         <AIAutomation />
-        <Education />
+        <JourneySection />
         <Contact />
       </main>
       <Footer />

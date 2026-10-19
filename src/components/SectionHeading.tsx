@@ -1,29 +1,47 @@
 import { Reveal } from "@/components/Reveal";
 
+export function SectionEyebrow({ number, label }: { number: string; label: string }) {
+  return (
+    <Reveal>
+      <span className="eyebrow">
+        {number} / {label}
+      </span>
+    </Reveal>
+  );
+}
+
 export function SectionHeading({
-  eyebrow,
-  title,
+  eyebrowNumber,
+  eyebrowLabel,
+  line1,
+  line2,
   description,
+  align = "left",
 }: {
-  eyebrow: string;
-  title: string;
+  eyebrowNumber: string;
+  eyebrowLabel: string;
+  line1: string;
+  line2?: string;
   description?: string;
+  align?: "left" | "center";
 }) {
   return (
-    <div className="max-w-2xl">
-      <Reveal>
-        <span className="font-display text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-          {eyebrow}
-        </span>
-      </Reveal>
+    <div className={align === "center" ? "mx-auto max-w-2xl text-center" : "max-w-2xl"}>
+      <SectionEyebrow number={eyebrowNumber} label={eyebrowLabel} />
       <Reveal delay={0.08}>
-        <h2 className="font-display mt-3 text-balance text-3xl font-semibold tracking-tight sm:text-4xl md:text-5xl">
-          {title}
+        <h2 className="font-display mt-5 text-balance text-4xl font-medium leading-[1.08] tracking-tight sm:text-5xl md:text-6xl">
+          {line1}
+          {line2 && (
+            <>
+              <br />
+              <em className="italic text-fg-muted">{line2}</em>
+            </>
+          )}
         </h2>
       </Reveal>
       {description && (
         <Reveal delay={0.16}>
-          <p className="mt-4 text-balance text-base leading-relaxed text-fg-muted md:text-lg">
+          <p className="mt-5 text-balance text-base leading-relaxed text-fg-muted md:text-lg">
             {description}
           </p>
         </Reveal>

@@ -1,18 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useMotionOn } from "@/lib/motion-context";
 
 export function Loader() {
   const [loading, setLoading] = useState(true);
-  const reduceMotion = useReducedMotion();
+  const { motionOn } = useMotionOn();
 
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), reduceMotion ? 0 : 900);
+    const timer = setTimeout(() => setLoading(false), motionOn ? 900 : 0);
     return () => clearTimeout(timer);
-  }, [reduceMotion]);
+  }, [motionOn]);
 
-  if (reduceMotion) return null;
+  if (!motionOn) return null;
 
   return (
     <AnimatePresence>
@@ -24,11 +25,11 @@ export function Loader() {
         >
           <motion.span
             initial={{ opacity: 0, letterSpacing: "0.1em" }}
-            animate={{ opacity: 1, letterSpacing: "0.02em" }}
+            animate={{ opacity: 1, letterSpacing: "0.01em" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="font-display text-2xl font-semibold text-fg"
+            className="font-display text-2xl font-medium text-fg"
           >
-            BN<span className="text-accent">.</span>
+            Bilal <em className="italic text-fg-muted">Nadeem</em>
           </motion.span>
         </motion.div>
       )}

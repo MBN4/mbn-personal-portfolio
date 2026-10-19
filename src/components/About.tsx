@@ -1,69 +1,81 @@
+import Image from "next/image";
 import { Reveal } from "@/components/Reveal";
-import { SectionHeading } from "@/components/SectionHeading";
+import { SectionEyebrow } from "@/components/SectionHeading";
 
-const PILLARS = [
-  {
-    title: "Full-stack engineering",
-    body: "Building complete products end to end — from PostgreSQL/MongoDB data models and Express APIs to React, Next.js, and React Native clients — primarily on the MERN stack.",
-  },
-  {
-    title: "AI automation",
-    body: "Integrating LLM APIs (OpenAI, Gemini) into real applications — chat agents, recommendation logic, and automated summarization — to make software do more of the work.",
-  },
-  {
-    title: "Data-driven thinking",
-    body: "An ongoing Master's in Data Science is sharpening how I reason about data, modeling, and decision-making — and how that connects back to the products I build.",
-  },
-];
+const TAGS = ["Build", "Learn", "Automate"];
 
 export function About() {
   return (
-    <section id="about" className="relative py-28 md:py-36">
+    <section id="about" className="relative py-24 md:py-32">
       <div className="container-page">
-        <SectionHeading
-          eyebrow="About"
-          title="A full-stack engineer, expanding toward AI and data"
-        />
+        <div className="flex items-start justify-between gap-6">
+          <SectionEyebrow number="01" label="The person behind the work" />
+          <span className="hidden text-xs uppercase tracking-[0.2em] text-fg-faint md:inline">
+            A grounded perspective
+          </span>
+        </div>
 
-        <div className="mt-14 grid gap-12 md:grid-cols-[1.1fr_1fr] md:gap-16">
+        <div className="mt-12 grid gap-12 md:grid-cols-[0.8fr_1.2fr] md:gap-16">
           <Reveal>
-            <div className="space-y-5 text-balance text-lg leading-relaxed text-fg-muted">
-              <p>
-                I completed my{" "}
-                <span className="text-fg">B.S. in Computer Science in 2024</span> and have been
-                working since as a{" "}
-                <span className="text-fg">Software Engineer at Clustox</span>, building full-stack
-                web applications on the MERN stack — designing APIs, modeling data, and shipping
-                the interfaces that sit on top of them.
-              </p>
-              <p>
-                Alongside that, I&apos;m pursuing a{" "}
-                <span className="text-fg">Master&apos;s in Data Science</span>, which is pushing
-                me to think more rigorously about data and the systems built on it. It&apos;s also
-                the bridge into the area I&apos;m most excited about right now:{" "}
-                <span className="text-fg">AI automation</span> — wiring language models and
-                intelligent workflows into software that solves a concrete problem, not just demos
-                that look clever.
-              </p>
-              <p>
-                My approach stays practical: understand the actual requirement, break it into
-                buildable pieces, and ship something that works reliably — then look for the parts
-                of that process that could be automated or made smarter next time.
-              </p>
+            <div className="relative aspect-[4/5] w-full max-w-xs overflow-hidden rounded-2xl border border-border">
+              <Image
+                src="/images/hero-portrait.jpg"
+                alt="Bilal Nadeem"
+                fill
+                sizes="320px"
+                className="halftone object-cover"
+                style={{ objectPosition: "50% 15%" }}
+              />
+            </div>
+            <div className="mt-5 flex gap-2">
+              {TAGS.map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full border border-border px-3.5 py-1.5 text-xs font-medium text-fg-muted"
+                >
+                  {tag}
+                </span>
+              ))}
             </div>
           </Reveal>
 
-          <div className="grid gap-5">
-            {PILLARS.map((pillar, i) => (
-              <Reveal key={pillar.title} delay={i * 0.1}>
-                <div className="rounded-2xl border border-border bg-surface/60 p-6 transition-colors hover:border-accent/40">
-                  <h3 className="font-display text-base font-semibold text-fg">
-                    {pillar.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-fg-muted">{pillar.body}</p>
-                </div>
-              </Reveal>
-            ))}
+          <div>
+            <Reveal>
+              <h3 className="font-display text-balance text-3xl font-medium leading-[1.1] sm:text-4xl md:text-5xl">
+                Full-stack is the starting point.
+                <br />
+                <em className="italic text-fg-muted">AI automation is the point.</em>
+              </h3>
+            </Reveal>
+
+            <Reveal delay={0.1}>
+              <div className="mt-7 space-y-5 text-balance text-base leading-relaxed text-fg-muted md:text-lg">
+                <p>
+                  I completed my <span className="text-fg">B.S. in Computer Science in 2024</span>{" "}
+                  and have been working since as a{" "}
+                  <span className="text-fg">Software Engineer at Clustox</span>, building
+                  full-stack web applications on the MERN stack — designing APIs, modeling data,
+                  and shipping the interfaces that sit on top of them.
+                </p>
+                <p>
+                  Alongside that, I&apos;m pursuing a{" "}
+                  <span className="text-fg">Master&apos;s in Data Science</span>, which is the
+                  bridge into what I&apos;m most excited about right now:{" "}
+                  <span className="text-fg">AI automation</span> — wiring language models and
+                  intelligent workflows into software that solves a concrete problem, not demos
+                  that just look clever.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.18}>
+              <a
+                href="#work"
+                className="mt-7 inline-flex items-center gap-1.5 border-b border-fg/40 pb-0.5 text-sm font-medium text-fg transition-colors hover:border-cream hover:text-cream"
+              >
+                Explore the projects →
+              </a>
+            </Reveal>
           </div>
         </div>
       </div>
