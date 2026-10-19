@@ -4,6 +4,7 @@ import ProofStrip from "@/components/ProofStrip";
 import About from "@/components/About";
 import Work from "@/components/Work";
 import ExpertiseJourney from "@/components/ExpertiseJourney";
+import Journey from "@/components/Journey";
 import Skills from "@/components/Skills";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
@@ -19,6 +20,7 @@ export default function Home() {
         <About />
         <Work />
         <ExpertiseJourney />
+        <Journey />
         <Skills />
         <Contact />
       </main>

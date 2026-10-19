@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ACCORDION_ITEMS, EDUCATION, EXPERIENCE, PROCESS_STEPS } from "@/lib/data";
+import { ACCORDION_ITEMS, PROCESS_STEPS } from "@/lib/data";
 import { Reveal } from "@/components/Reveal";
 
 export default function ExpertiseJourney() {
@@ -94,92 +94,6 @@ export default function ExpertiseJourney() {
             })}
           </div>
         </div>
-      </section>
-
-      {/* 04 / JOURNEY */}
-      <section id="journey" style={{ padding: "7rem 2rem", maxWidth: "1360px", margin: "0 auto", borderBottom: "1px solid var(--border)" }}>
-        <div className="section-label">
-          <div>
-            <span className="square-bullet" />
-            <span>04 / PART OF THE BUILDING STORY</span>
-          </div>
-          <span>EDUCATION &amp; EXPERIENCE</span>
-        </div>
-
-        <Reveal style={{ marginBottom: "3rem" }}>
-          <h2 className="editorial-title">
-            From the classroom.
-            <br />
-            <em>To the engineering team.</em>
-          </h2>
-          <p style={{ fontSize: "1.05rem", color: "var(--text-muted)", maxWidth: "480px", marginTop: "1rem" }}>
-            Since 2024, I&apos;ve completed my degree, joined a professional engineering team, and started building toward data and AI alongside that work.
-          </p>
-        </Reveal>
-
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2.5rem", marginBottom: "3rem" }}>
-          {EDUCATION.map((item, idx) => (
-            <Reveal key={item.degree} delay={idx * 0.08} style={{ padding: "2rem", background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "12px" }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", letterSpacing: "0.15em", color: "var(--accent)", textTransform: "uppercase" }}>
-                {item.period}
-              </span>
-              <h4 style={{ fontFamily: "var(--font-serif)", fontSize: "1.35rem", color: "var(--cream)", margin: "0.5rem 0" }}>{item.degree}</h4>
-              <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}>{item.description}</p>
-            </Reveal>
-          ))}
-
-          {EXPERIENCE.map((job) => (
-            <Reveal key={job.company} delay={0.16} style={{ padding: "2rem", background: "rgba(255, 112, 51, 0.04)", border: "1px solid rgba(255, 112, 51, 0.2)", borderRadius: "12px" }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.68rem", letterSpacing: "0.15em", color: "var(--accent)" }}>
-                THE CURRENT ROLE
-              </span>
-              <h4 style={{ fontFamily: "var(--font-serif)", fontSize: "1.35rem", color: "#ffffff", margin: "0.5rem 0" }}>
-                {job.title} · {job.company}
-                <span style={{ color: "var(--cream)", fontFamily: "var(--font-sans)", fontSize: "0.7rem", marginLeft: "0.6rem" }}>{job.period}</span>
-              </h4>
-              <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.5, margin: 0 }}>{job.summary}</p>
-            </Reveal>
-          ))}
-        </div>
-
-        <Reveal style={{ background: "var(--surface)", border: "1px solid var(--border)", borderRadius: "16px", padding: "3rem" }}>
-          <div style={{ marginBottom: "2.5rem" }}>
-            <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.72rem", letterSpacing: "0.15em", color: "var(--accent)", textTransform: "uppercase" }}>
-              CAREER TIMELINE
-            </span>
-            <h3 style={{ fontFamily: "var(--font-serif)", fontSize: "clamp(1.8rem, 3vw, 2.5rem)", fontWeight: 400, color: "#ffffff", marginTop: "0.5rem" }}>
-              From completing the degree.
-              <br />
-              <em>To building what comes next.</em>
-            </h3>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "2.5rem" }}>
-            <div style={{ borderTop: "1px solid var(--border)", paddingTop: "1.25rem" }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: "var(--cream)", fontWeight: 600 }}>2024</span>
-              <h4 style={{ fontFamily: "var(--font-sans)", fontSize: "1.1rem", color: "#ffffff", margin: "0.4rem 0" }}>Completed the degree, joined the team</h4>
-              <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>
-                Finished a B.S. in Computer Science and joined Clustox as a Software Engineer, building full-stack web applications on the MERN stack.
-              </p>
-            </div>
-
-            <div style={{ borderTop: "1px solid var(--border)", paddingTop: "1.25rem" }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: "var(--cream)", fontWeight: 600 }}>2024 — Present</span>
-              <h4 style={{ fontFamily: "var(--font-sans)", fontSize: "1.1rem", color: "#ffffff", margin: "0.4rem 0" }}>Full-stack engineering, day to day</h4>
-              <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>
-                Working across the stack in a professional engineering team — API design, data modeling, and frontend implementation on real client work.
-              </p>
-            </div>
-
-            <div style={{ borderTop: "1px solid var(--border)", paddingTop: "1.25rem" }}>
-              <span style={{ fontFamily: "var(--font-mono)", fontSize: "0.85rem", color: "var(--cream)", fontWeight: 600 }}>Ongoing</span>
-              <h4 style={{ fontFamily: "var(--font-sans)", fontSize: "1.1rem", color: "#ffffff", margin: "0.4rem 0" }}>Building the next layer: data and AI</h4>
-              <p style={{ fontSize: "0.88rem", color: "var(--text-muted)", lineHeight: 1.6, margin: 0 }}>
-                Pursuing an M.S. in Data Science while shipping AI-powered side projects — a chat agent, a recommendation engine — to turn that study into real software.
-              </p>
-            </div>
-          </div>
-        </Reveal>
       </section>
     </>
   );

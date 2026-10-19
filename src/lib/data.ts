@@ -125,6 +125,33 @@ export const JOURNEY = [
   },
 ];
 
+export const JOURNEY_STORY = [
+  {
+    marker: "BEFORE 2024",
+    title: "Four years of Computer Science.",
+    body: "Algorithms, systems, and software fundamentals — the groundwork everything since has been built on.",
+    tag: "Education",
+  },
+  {
+    marker: "2024",
+    title: "Degree finished. Career started.",
+    body: "Completed the B.S. and joined Clustox as a Software Engineer in the same year — straight from the classroom into production code.",
+    tag: "Turning point",
+  },
+  {
+    marker: "2024 — Present",
+    title: "Full-stack, every day.",
+    body: "API design, data modeling, and frontend implementation on real client work, as part of a professional engineering team.",
+    tag: "Clustox",
+  },
+  {
+    marker: "Ongoing",
+    title: "Adding data and AI to the stack.",
+    body: "Pursuing an M.S. in Data Science while shipping AI-powered side projects of my own — turning that study into software, not just coursework.",
+    tag: "What's next",
+  },
+];
+
 export type Project = {
   slug: string;
   name: string;
