@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 import { useMotionOn } from "@/lib/motion-context";
 import { ArrowDownIcon, CornerArrowIcon, PlusIcon } from "@/components/icons/Icons";
@@ -7,6 +9,7 @@ import { HeroHalftonePortrait } from "@/components/HeroHalftonePortrait";
 
 export default function Hero() {
   const { motionOn } = useMotionOn();
+  const [halftoneDone, setHalftoneDone] = useState(false);
 
   return (
     <section
@@ -24,7 +27,7 @@ export default function Hero() {
         backgroundColor: "var(--bg)",
       }}
     >
-      {/* Background Central Portrait — animated halftone dissolve into the page background */}
+      {/* Background Central Portrait — halftone entrance dissolves into the sharp photo */}
       <motion.div
         role="img"
         aria-label="Bilal Nadeem — Software Engineer"
@@ -42,7 +45,50 @@ export default function Hero() {
           pointerEvents: "none",
         }}
       >
-        <HeroHalftonePortrait src="/images/hero-portrait.png" />
+        {motionOn && !halftoneDone && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 0 }}
+            transition={{ duration: 1, delay: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            onAnimationComplete={() => setHalftoneDone(true)}
+            style={{ position: "absolute", inset: 0, zIndex: 2 }}
+          >
+            <HeroHalftonePortrait src="/images/hero-portrait.png" />
+          </motion.div>
+        )}
+
+        <motion.div
+          initial={{ opacity: motionOn ? 0 : 1 }}
+          animate={{ opacity: 1 }}
+          transition={
+            motionOn
+              ? { duration: 1.1, delay: 1.1, ease: [0.16, 1, 0.3, 1] }
+              : { duration: 0 }
+          }
+          style={{
+            position: "absolute",
+            inset: 0,
+            zIndex: 1,
+            maskImage:
+              "radial-gradient(ellipse 42% 46% at 50% 40%, black 45%, transparent 82%)",
+            WebkitMaskImage:
+              "radial-gradient(ellipse 42% 46% at 50% 40%, black 45%, transparent 82%)",
+          }}
+        >
+          <Image
+            src="/images/hero-portrait.png"
+            alt=""
+            fill
+            priority
+            sizes="(max-width: 720px) 82vw, 720px"
+            style={{
+              objectFit: "cover",
+              objectPosition: "50% 15%",
+              filter: "contrast(1.08) brightness(1.02) grayscale(100%)",
+              mixBlendMode: "multiply",
+            }}
+          />
+        </motion.div>
       </motion.div>
 
       {/* Topline Metadata Bar */}
