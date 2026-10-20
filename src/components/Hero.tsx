@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { useMotionOn } from "@/lib/motion-context";
-import { ArrowDownIcon, CornerArrowIcon } from "@/components/icons/Icons";
+import { ArrowDownIcon, CornerArrowIcon, PlusIcon } from "@/components/icons/Icons";
+import { HeroHalftonePortrait } from "@/components/HeroHalftonePortrait";
 
 export default function Hero() {
   const { motionOn } = useMotionOn();
@@ -24,40 +24,25 @@ export default function Hero() {
         backgroundColor: "var(--bg)",
       }}
     >
-      {/* Background Central Portrait with soft dissolve into the page background */}
+      {/* Background Central Portrait — animated halftone dissolve into the page background */}
       <motion.div
+        role="img"
+        aria-label="Bilal Nadeem — Software Engineer"
         initial={{ opacity: 0, scale: motionOn ? 1.04 : 1 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
         style={{
           position: "absolute",
-          top: 0,
+          top: "1.25rem",
           left: "50%",
           x: "-50%",
-          width: "100%",
-          maxWidth: "780px",
-          height: "100%",
-          maxHeight: "860px",
+          width: "min(720px, 82vw)",
+          height: "min(780px, 74vh)",
           zIndex: 1,
           pointerEvents: "none",
-          maskImage:
-            "radial-gradient(ellipse 42% 46% at 50% 40%, black 45%, transparent 82%)",
-          WebkitMaskImage:
-            "radial-gradient(ellipse 42% 46% at 50% 40%, black 45%, transparent 82%)",
         }}
       >
-        <Image
-          src="/images/hero-portrait.png"
-          alt="Bilal Nadeem — Software Engineer"
-          fill
-          priority
-          sizes="(max-width: 780px) 100vw, 780px"
-          style={{
-            objectFit: "cover",
-            objectPosition: "50% 15%",
-            filter: "contrast(1.08) brightness(1.02) grayscale(100%)",
-          }}
-        />
+        <HeroHalftonePortrait src="/images/hero-portrait.png" />
       </motion.div>
 
       {/* Topline Metadata Bar */}
@@ -108,7 +93,9 @@ export default function Hero() {
         }}
       >
         <span style={{ color: "var(--text-muted)" }}>01 / PRESENCE</span>
-        <div style={{ width: "20px", height: "1px", background: "var(--border)" }} />
+        <span style={{ color: "var(--accent)" }}>
+          <PlusIcon />
+        </span>
         <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
           <span>FULL-STACK</span>
           <span>AI AUTOMATION</span>
